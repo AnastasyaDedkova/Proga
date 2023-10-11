@@ -2,7 +2,7 @@ import datetime
 
 
 def add(a, b):
-    return a + b
+    return round(a + b, 12)
 
 
 def mult(a, b):

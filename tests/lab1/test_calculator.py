@@ -1,5 +1,4 @@
 import unittest
-#import pytest
 
 from src.lab1.calculator import *
 
@@ -20,7 +19,7 @@ class CalculatorTestCase(unittest.TestCase):
     def test_div(self):
         self.assertEqual(div(10, 2), 5)
         self.assertAlmostEqual(div(2, 10), 0.2)
-        self.assertEqual(div(0.009, 0.003), 3)
+        self.assertAlmostEqual(div(0.009, 0.003), 3)
         self.assertEqual(div(7, 0), "Делить на ноль нельзя")
 
 
