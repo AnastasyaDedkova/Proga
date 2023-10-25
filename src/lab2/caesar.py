@@ -29,7 +29,7 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     return ciphertext
 
 #print(encrypt_caesar("to mimic chris walken: 3, 2, 1, why must you, pause, in strange places?"))
-'''
+
 def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     """
     Decrypts a ciphertext using a Caesar cipher.
@@ -50,8 +50,15 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     ''
     """
     plaintext = ""
-    # PUT YOUR CODE HERE
+    for i in ciphertext:
+        if (ord(i) >= 68 and ord(i) < 91) or (ord(i) >= 100 and ord(i) < 123):
+            plaintext += chr(ord(i) - shift)
+        elif (ord(i) >= 65 and ord(i) < 68) or (ord(i) >= 97 and ord(i) < 100):
+            plaintext += chr(ord(i) + shift + 20)
+        else:
+            plaintext += i
+
     return plaintext
-'''
-#doctest.testmod()
+#print(decrypt_caesar("wr plplf fkulv zdonhq: 3, 2, 1, zkb pxvw brx, sdxvh, lq vwudqjh sodfhv?"))
+doctest.testmod()
 #help(encrypt_caesar)
