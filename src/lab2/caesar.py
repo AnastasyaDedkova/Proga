@@ -1,4 +1,4 @@
-import doctest
+# import doctest
 def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     """
     Encrypts plaintext using a Caesar cipher.
@@ -28,7 +28,6 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
             ciphertext += i
     return ciphertext
 
-#print(encrypt_caesar("to mimic chris walken: 3, 2, 1, why must you, pause, in strange places?"))
 
 def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     """
@@ -59,6 +58,6 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
             plaintext += i
 
     return plaintext
-#print(decrypt_caesar("wr plplf fkulv zdonhq: 3, 2, 1, zkb pxvw brx, sdxvh, lq vwudqjh sodfhv?"))
-doctest.testmod()
-#help(encrypt_caesar)
+
+
+# doctest.testmod()
