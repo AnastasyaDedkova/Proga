@@ -4,6 +4,9 @@ from src.lab1.calculator import *
 
 
 class CalculatorTestCase(unittest.TestCase):
+    '''
+
+    '''
     def test_add(self):
         self.assertEqual(add(5, -90), -85)
         self.assertAlmostEqual(add(0.01, 0.003), 0.013)
