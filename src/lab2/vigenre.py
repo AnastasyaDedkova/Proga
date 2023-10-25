@@ -1,4 +1,3 @@
-import doctest
 def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     """
     Encrypts plaintext using a Vigenere cipher.
@@ -54,6 +53,20 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     'ATTACKATDAWN'
     """
     plaintext = ""
-    # PUT YOUR CODE HERE
+    tmp_text = ""
+    keylen = len(keyword)
+    key = keyword.upper()
+    i = 0
+    for j in ciphertext:
+        if not j.isalpha():
+            plaintext += j
+        else:
+            if j.isupper():
+                a = "A"
+            else:
+                a = "a"
+            plaintext += chr(ord(a) + ((ord(j) - ord(a)) - (ord(key[i]) - ord("A"))) % 26)
+            i += 1
+            if i == keylen:
+                i = 0
     return plaintext
-doctest.testmod()
