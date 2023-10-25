@@ -53,7 +53,6 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     'ATTACKATDAWN'
     """
     plaintext = ""
-    tmp_text = ""
     keylen = len(keyword)
     key = keyword.upper()
     i = 0
