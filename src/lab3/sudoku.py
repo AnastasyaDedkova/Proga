@@ -138,8 +138,8 @@ def find_possible_values(
 
 
 def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
-    """ Решение пазла, заданного в grid """
-    """ Как решать Судоку?
+    """Решение пазла, заданного в grid
+    Как решать Судоку?
         1. Найти свободную позицию
         2. Найти все возможные значения, которые могут находиться на этой позиции
         3. Для каждого возможного значения:
@@ -149,16 +149,46 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
     >>> solve(grid)
     [['5', '3', '4', '6', '7', '8', '9', '1', '2'], ['6', '7', '2', '1', '9', '5', '3', '4', '8'], ['1', '9', '8', '3', '4', '2', '5', '6', '7'], ['8', '5', '9', '7', '6', '1', '4', '2', '3'], ['4', '2', '6', '8', '5', '3', '7', '9', '1'], ['7', '1', '3', '9', '2', '4', '8', '5', '6'], ['9', '6', '1', '5', '3', '7', '2', '8', '4'], ['2', '8', '7', '4', '1', '9', '6', '3', '5'], ['3', '4', '5', '2', '8', '6', '1', '7', '9']]
     """
-    pass
+    free_pos = find_empty_positions(grid)
+    if free_pos is None:
+        return grid if check_solution(grid) else None
+
+    possible_values = find_possible_values(grid, free_pos)
+    for possible_value in possible_values:
+        last_value = grid[free_pos[0]][free_pos[1]]
+
+        grid[free_pos[0]][free_pos[1]] = possible_value
+
+        solution = solve(grid)
+        if solution is not None:
+            return solution
+
+        grid[free_pos[0]][free_pos[1]] = last_value
+
+    return None
 
 
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
-    """ Если решение solution верно, то вернуть True, в противном случае False """
-    # TODO: Add doctests with bad puzzles
-    pass
+    """Если решение solution верно, то вернуть True, в противном случае False"""
+
+    lines = []
+    lines += [get_row(solution, (i, 0)) for i in range(len(solution))]
+    lines += [get_col(solution, (0, i)) for i in range(len(solution[0]))]
+    lines += [
+        get_block(solution, (y, x))
+        for y in range(0, len(solution), 3)
+        for x in range(0, len(solution[y]), 3)
+    ]
+
+    for line in lines:
+        line = list(set(line))
+        if "." in line or len(line) != len(solution):
+            return False
+
+    return True
 
 
-def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
+def generate_sudoku(count: int) -> tp.List[tp.List[str]]:
     """Генерация судоку заполненного на N элементов
     >>> grid = generate_sudoku(40)
     >>> sum(1 for row in grid for e in row if e == '.')
@@ -179,7 +209,23 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     >>> check_solution(solution)
     True
     """
-    pass
+    grid = [["."] * 9 for _ in range(9)]
+    solution = solve(grid)
+
+    if not solution:
+        raise BaseException("Невозможно найти решение")
+
+    grid = solution
+
+    free_poses = [(y, x) for y in range(len(grid)) for x in range(len(grid[y]))]
+    for _ in range(len(grid) * len(grid[0]) - count):
+        index_pos = random.randint(0, len(free_poses) - 1)
+        pos = free_poses[index_pos]
+        del free_poses[index_pos]
+
+        grid[pos[0]][pos[1]] = "."
+
+    return grid
 
 
 if __name__ == "__main__":
