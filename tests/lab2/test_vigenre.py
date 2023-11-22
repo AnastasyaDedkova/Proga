@@ -1,5 +1,7 @@
 import unittest
 from src.lab2.vigenre import *
+import random
+import string
 
 
 class ViginereTestCase(unittest.TestCase):
@@ -18,6 +20,13 @@ class ViginereTestCase(unittest.TestCase):
         self.assertEqual(decrypt_vigenere("s", "w"), 'w')
         self.assertEqual(decrypt_vigenere("SOS", "Wa"), 'WOW')
         self.assertEqual(decrypt_vigenere("Kgzlbrgc vpdutp", "Python"), 'Vigenere cipher')
+
+    def test_randomized(self):
+        kwlen = random.randint(4, 24)
+        keyword = ''.join(random.choice(string.ascii_letters) for _ in range(kwlen))
+        plaintext = ''.join(random.choice(string.ascii_letters + ' -,') for _ in range(64))
+        ciphertext = encrypt_vigenere(plaintext, keyword)
+        self.assertEqual(plaintext, decrypt_vigenere(ciphertext, keyword))
 
 if __name__ == '__main__':
     unittest.main()
