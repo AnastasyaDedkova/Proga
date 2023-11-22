@@ -168,6 +168,7 @@ class SudokuTestCase(unittest.TestCase):
         # ]
         # actual_solution = sudoku.solve(grid)
         # self.assertEqual(expected_solution, actual_solution)
+        #
 
     def test_check_solution(self):
         good_solution = [
