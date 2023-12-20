@@ -16,3 +16,6 @@ class R_sysTestCase(unittest.TestCase):
 
         self.assertEqual(recommendation, "Дюна")
 
+if __name__ == 'main':
+    unittest.main()
+
